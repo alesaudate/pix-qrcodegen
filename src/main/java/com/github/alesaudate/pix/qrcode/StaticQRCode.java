@@ -23,6 +23,7 @@ public class StaticQRCode extends QRCode {
         addBlock(TRANSACTION_CURRENCY_BRL_BLOCK);
         addBlock(COUNTRY_CODE_BR_BLOCK);
         addBlock(UNDEFINED_TX_ID_BLOCK);
+        setMerchantCategoryCode("0000");
     }
 
     public void setMerchantAccountInformationKey(String key) {

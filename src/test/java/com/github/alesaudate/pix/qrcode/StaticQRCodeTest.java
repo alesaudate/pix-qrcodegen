@@ -14,7 +14,7 @@ class StaticQRCodeTest {
         String staticQRCode = staticQRCode()
                 .merchantAccountInformation()
                 .merchantKey("123e4567-e12b-12d1-a456-426655440000")
-                .merchantCategoryCode("0000")
+                .unknownMerchantCategoryCode()
                 .merchantName("Fulano de Tal")
                 .merchantCity("BRASILIA")
                 .build();
@@ -41,7 +41,6 @@ class StaticQRCodeTest {
         StaticQRCode staticQRCode = new StaticQRCode();
         staticQRCode.setDefaultValues();
         staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
-        staticQRCode.setMerchantCategoryCode("0000");
         staticQRCode.setMerchantName("Fulano de Tal");
         staticQRCode.setMerchantCity("BRASILIA");
 

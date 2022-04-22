@@ -15,4 +15,8 @@ public class MerchantCategoryCodeBuilder {
         this.staticQRCode.setMerchantCategoryCode(merchantCategoryCode);
         return new MerchantNameBuilder(this.staticQRCode);
     }
+
+    public MerchantNameBuilder unknownMerchantCategoryCode() {
+        return merchantCategoryCode("0000");
+    }
 }
