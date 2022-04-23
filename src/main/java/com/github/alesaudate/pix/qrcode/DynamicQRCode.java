@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Set;
 
+import static com.github.alesaudate.pix.qrcode.QRCodeUtils.validateURL;
+
 public class DynamicQRCode extends QRCode{
 
     private static final String POINT_OF_INITIATION_METHOD_CODE = "01";
@@ -20,6 +22,9 @@ public class DynamicQRCode extends QRCode{
     }
 
     public void setMerchantAccountInformationURL(String url) {
+        if (!validateURL(url)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + url);
+        }
         SimpleBlock urlBlock = new SimpleBlock(MERCHANT_ACCOUNT_INFORMATION_URL_CODE, url);
         addBlockWithinMerchantAccountInformation(urlBlock);
     }

@@ -30,4 +30,6 @@ public abstract class Block {
     }
 
     protected abstract String getBlockContent() ;
+
+    protected abstract void validateBlockContent();
 }

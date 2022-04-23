@@ -2,6 +2,8 @@ package com.github.alesaudate.pix.qrcode;
 
 import java.util.Set;
 
+import static com.github.alesaudate.pix.qrcode.QRCodeUtils.validateKey;
+
 public class StaticQRCode extends QRCode {
 
     private static final String UNDEFINED_TX_ID = "***";
@@ -15,6 +17,9 @@ public class StaticQRCode extends QRCode {
     }
 
     public void setMerchantAccountInformationKey(String key) {
+        if (!validateKey(key)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + key);
+        }
         SimpleBlock keyBlock = new SimpleBlock(MERCHANT_ACCOUNT_INFORMATION_KEY_CODE, key);
         addBlockWithinMerchantAccountInformation(keyBlock);
     }

@@ -1,9 +1,22 @@
 package com.github.alesaudate.pix.qrcode;
 
 
+import java.util.regex.Pattern;
+
 import static java.lang.String.format;
+import static java.util.regex.Pattern.compile;
 
 public class QRCodeUtils {
+
+
+    private QRCodeUtils(){
+    }
+
+    private static final Pattern ALPHANUMERIC_PATTERN = compile("[a-zA-Z\\d]+");
+    private static final Pattern NUMERIC_PATTERN = compile("\\d+");
+    private static final Pattern KEY_PATTERN = compile("[a-zA-Z\\d\\-*]+");
+    private static final Pattern URL_PATTERN = compile("[a-zA-Z\\d\\-./]+");
+
 
     public static String getLengthWithTwoDigits(String string) {
         if (string.length() > 99) {
@@ -35,7 +48,24 @@ public class QRCodeUtils {
         return leftPad(Integer.toHexString(result).toUpperCase(), 4);
     }
 
-    private static String leftPad (String string, int size) {
+
+    public static boolean validateStringAlphanumeric(String string) {
+        return !ALPHANUMERIC_PATTERN.matcher(string).matches();
+    }
+
+    public static boolean validateKey(String key) {
+        return !KEY_PATTERN.matcher(key).matches();
+    }
+
+    public static boolean validateURL(String url) {
+        return !URL_PATTERN.matcher(url).matches();
+    }
+
+    public static boolean validateNumeric(String string) {
+        return !NUMERIC_PATTERN.matcher(string).matches();
+    }
+
+    private static String leftPad(String string, int size) {
         int missingSize = size - string.length();
         StringBuilder padding = new StringBuilder();
         while (padding.length() < missingSize) {

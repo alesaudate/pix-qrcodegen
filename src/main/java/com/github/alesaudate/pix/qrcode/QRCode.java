@@ -3,7 +3,7 @@ package com.github.alesaudate.pix.qrcode;
 import java.util.*;
 
 import static com.github.alesaudate.pix.qrcode.Country.BRAZIL;
-import static com.github.alesaudate.pix.qrcode.QRCodeUtils.crc16;
+import static com.github.alesaudate.pix.qrcode.QRCodeUtils.*;
 import static com.github.alesaudate.pix.qrcode.TransactionCurrency.BRL;
 import static java.lang.String.format;
 import static java.lang.String.join;
@@ -11,7 +11,6 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toSet;
 
 public abstract class QRCode {
 
@@ -35,6 +34,9 @@ public abstract class QRCode {
     private static final Block TRANSACTION_CURRENCY_BRL_BLOCK = new SimpleBlock("53", BRL.getValue());
     private static final Block COUNTRY_CODE_BR_BLOCK = new SimpleBlock("58", BRAZIL.getValue());
     private static final SimpleBlock MERCHANT_ACCOUNT_INFORMATION_GUI_BLOCK = new SimpleBlock(MERCHANT_ACCOUNT_INFORMATION_GUI_CODE, MERCHANT_ACCOUNT_INFORMATION_GUI_DEFAULT);
+
+    //Exception message
+    protected static final String MESSAGE_PROVIDED_VALUE_IS_NOT_VALID = "Provided value is not compliant with accepted values: ";
 
 
     private final List<Block> blocks;
@@ -66,19 +68,31 @@ public abstract class QRCode {
     }
 
     public void setMerchantCategoryCode(String merchantCategoryCode) {
+        if (!validateNumeric(merchantCategoryCode)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + merchantCategoryCode);
+        }
         addBlock(new SimpleBlock(MERCHANT_CATEGORY_CODE_BLOCK_CODE, merchantCategoryCode));
     }
 
 
     public void setMerchantName(String merchantName) {
+        if (!validateStringAlphanumeric(merchantName)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + merchantName);
+        }
         addBlock(new SimpleBlock(MERCHANT_NAME_BLOCK_CODE, merchantName));
     }
 
     public void setMerchantCity(String merchantCity) {
+        if (!validateStringAlphanumeric(merchantCity)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + merchantCity);
+        }
         addBlock(new SimpleBlock(MERCHANT_CITY_BLOCK_CODE, merchantCity));
     }
 
     public void setTransactionCode(String transactionCode) {
+        if (!validateKey(transactionCode)) {
+            throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + transactionCode);
+        }
         addBlock(new CompositeBlock(ADDITIONAL_DATA_FIELD_CODE, singletonList(new SimpleBlock(ADDITIONAL_DATA_FIELD_REFERENCE_LABEL_CODE, transactionCode))));
     }
 
@@ -103,21 +117,7 @@ public abstract class QRCode {
             throw new InvalidDataException(format("The following mandatory blocks are missing: [%s]",
                     join(",", mandatoryBlockCodes)));
         }
-        Set<Block> invalidBlocks = this.blocks.stream().filter(block -> block.getBlockContent().length() > 99).collect(toSet());
-        if (!invalidBlocks.isEmpty()) {
-            String message = format("The following blocks have sizes greater than the maximum allowed: [%s]",
-                    invalidBlocks.stream().map(this::getInvalidBlockMessage).collect(joining("\n")));
-            throw new InvalidDataException(message);
-        }
-    }
-
-    private String getInvalidBlockMessage(Block block) {
-        return format("%s(content is %s, %d characters long)", block.getBlockCode(), block.getBlockContent(), block.getBlockContent().length());
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
+        this.blocks.forEach(Block::validateBlockContent);
     }
 
     public String asString() {

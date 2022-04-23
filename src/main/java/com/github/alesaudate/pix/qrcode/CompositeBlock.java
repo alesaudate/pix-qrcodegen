@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 
 public class CompositeBlock extends Block{
@@ -27,5 +28,14 @@ public class CompositeBlock extends Block{
         return blocks.stream()
                 .map(Block::assembleBlock)
                 .collect(joining());
+    }
+
+    @Override
+    protected void validateBlockContent() {
+        blocks.forEach(Block::validateBlockContent);
+        String blockContent = getBlockContent();
+        if (blockContent.length() > 99) {
+            throw new InvalidDataException(format("The block %s has too long content, with %d characters", getBlockCode(), blockContent.length()));
+        }
     }
 }
