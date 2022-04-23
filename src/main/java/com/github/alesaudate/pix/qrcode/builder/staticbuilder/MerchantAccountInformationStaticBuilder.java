@@ -1,6 +1,5 @@
 package com.github.alesaudate.pix.qrcode.builder.staticbuilder;
 
-import com.github.alesaudate.pix.qrcode.CompositeBlock;
 import com.github.alesaudate.pix.qrcode.StaticQRCode;
 
 public class MerchantAccountInformationStaticBuilder {

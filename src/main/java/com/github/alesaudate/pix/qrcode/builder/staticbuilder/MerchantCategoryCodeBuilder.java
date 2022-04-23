@@ -11,12 +11,12 @@ public class MerchantCategoryCodeBuilder {
     }
 
 
-    public MerchantNameBuilder merchantCategoryCode(String merchantCategoryCode) {
+    public MerchantNameStaticBuilder merchantCategoryCode(String merchantCategoryCode) {
         this.staticQRCode.setMerchantCategoryCode(merchantCategoryCode);
-        return new MerchantNameBuilder(this.staticQRCode);
+        return new MerchantNameStaticBuilder(this.staticQRCode);
     }
 
-    public MerchantNameBuilder unknownMerchantCategoryCode() {
+    public MerchantNameStaticBuilder unknownMerchantCategoryCode() {
         return merchantCategoryCode("0000");
     }
 }

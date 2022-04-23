@@ -1,5 +1,8 @@
 package com.github.alesaudate.pix.qrcode;
 
+import java.util.Collections;
+import java.util.Set;
+
 import static com.github.alesaudate.pix.qrcode.QRCodeUtils.getLengthWithTwoDigits;
 
 public abstract class Block {
@@ -14,6 +17,10 @@ public abstract class Block {
 
     public String getBlockCode() {
         return blockCode;
+    }
+
+    public Set<String> getBlockCodesForValidation() {
+        return Collections.singleton(getBlockCode());
     }
 
     public String assembleBlock() {

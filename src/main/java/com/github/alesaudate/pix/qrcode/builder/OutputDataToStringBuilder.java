@@ -1,4 +1,4 @@
-package com.github.alesaudate.pix.qrcode.builder.staticbuilder;
+package com.github.alesaudate.pix.qrcode.builder;
 
 import com.github.alesaudate.pix.qrcode.QRCode;
 
@@ -11,6 +11,6 @@ public class OutputDataToStringBuilder {
     }
 
     public String build() {
-        return qrCode.toString();
+        return qrCode.asString();
     }
 }

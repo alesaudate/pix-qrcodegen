@@ -1,5 +1,6 @@
 package com.github.alesaudate.pix.qrcode;
 
+import com.github.alesaudate.pix.qrcode.builder.dynamicbuilder.DynamicQRCodeBuilder;
 import com.github.alesaudate.pix.qrcode.builder.staticbuilder.StaticQRCodeBuilder;
 
 public class QRCodeBuilder {
@@ -11,6 +12,11 @@ public class QRCodeBuilder {
         return new StaticQRCodeBuilder(staticQRCode);
     }
 
+    public static DynamicQRCodeBuilder dynamicQRCode(){
+        DynamicQRCode dynamicQRCode = new DynamicQRCode();
+        dynamicQRCode.setDefaultValues();
+        return new DynamicQRCodeBuilder(dynamicQRCode);
+    }
 
 }
 

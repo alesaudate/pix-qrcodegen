@@ -55,7 +55,7 @@ class StaticQRCodeTest {
                 "6008BRASILIA" +
                 "6207" +
                 "0503***" +
-                "63041D3D", staticQRCode.toString());
+                "63041D3D", staticQRCode.asString());
 
     }
 

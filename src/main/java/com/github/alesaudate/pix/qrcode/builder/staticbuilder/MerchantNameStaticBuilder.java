@@ -1,11 +1,12 @@
 package com.github.alesaudate.pix.qrcode.builder.staticbuilder;
 
 import com.github.alesaudate.pix.qrcode.StaticQRCode;
+import com.github.alesaudate.pix.qrcode.builder.MerchantCityBuilder;
 
-public class MerchantNameBuilder {
+public class MerchantNameStaticBuilder {
     private final StaticQRCode staticQRCode;
 
-    public MerchantNameBuilder(StaticQRCode staticQRCode) {
+    public MerchantNameStaticBuilder(StaticQRCode staticQRCode) {
         this.staticQRCode = staticQRCode;
     }
 
