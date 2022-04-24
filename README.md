@@ -62,5 +62,10 @@ public class Pix {
 }
 ```
 
-Este código produz a mesma saída que o descrito pela DSL, mas observe que ele não apresenta as mesmas restrições. Isto quer dizer que os métodos podem ser invocados em qualquer ordem. Porém, uma desvantagem desta abordagem é que ela não reforça a invocação dos métodos, sendo que a presença ou ausência dos blocos obrigatórios somente será verificada através da execução do método `asString`.
+Este código produz a mesma saída que o descrito pela DSL, mas observe que ele não apresenta as mesmas restrições. Isto quer dizer que os métodos podem ser invocados em qualquer ordem, e a presença ou ausência dos blocos obrigatórios somente será verificada através da execução do método `asString`.
 
+## Gerando um QR Code dinâmico
+
+### Através da DSL
+
+### Utilizando um POJO
