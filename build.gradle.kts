@@ -18,6 +18,7 @@ dependencies {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
 }
 
 
@@ -28,5 +29,20 @@ tasks.googleJavaFormat {
 tasks.verifyGoogleJavaFormat {
     if (googleJavaFormat.toolVersion == "1.8") {
         googleJavaFormat.toolVersion = "1.0"
+    }
+}
+
+
+tasks.check {
+    dependsOn("jacocoTestCoverageVerification")
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.9".toBigDecimal()
+            }
+        }
     }
 }
