@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jacoco")
     id("com.github.sherter.google-java-format") version "0.9"
 }
 
@@ -25,5 +26,7 @@ tasks.googleJavaFormat {
 }
 
 tasks.verifyGoogleJavaFormat {
-    googleJavaFormat.toolVersion = "1.0"
+    if (googleJavaFormat.toolVersion == "1.8") {
+        googleJavaFormat.toolVersion = "1.0"
+    }
 }

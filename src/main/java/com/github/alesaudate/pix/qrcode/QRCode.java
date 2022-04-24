@@ -75,6 +75,9 @@ public abstract class QRCode {
     if (!validateNumeric(merchantCategoryCode)) {
       throw new InvalidDataException(MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + merchantCategoryCode);
     }
+    if (merchantCategoryCode.length() != 4) {
+      throw new InvalidDataException("Merchant Category Code must have exactly 4 digits");
+    }
     addBlock(new SimpleBlock(MERCHANT_CATEGORY_CODE_BLOCK_CODE, merchantCategoryCode));
   }
 

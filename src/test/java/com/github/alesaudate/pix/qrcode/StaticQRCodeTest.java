@@ -58,7 +58,7 @@ class StaticQRCodeTest {
   }
 
   @Test
-  void asString_nullMerchantName_validationFails() {
+  void setMerchantName_nullMerchantName_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
 
     assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantName(null));
@@ -88,7 +88,7 @@ class StaticQRCodeTest {
   }
 
   @Test
-  void asString_blankMerchantAccountInformationKey_validationFails() {
+  void setMerchantAccountInformationKey_blankMerchantAccountInformationKey_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
 
     assertThrows(
@@ -96,7 +96,7 @@ class StaticQRCodeTest {
   }
 
   @Test
-  void asString_merchantAccountInformationKeyTooLong_validationFails() {
+  void setMerchantAccountInformationKey_merchantAccountInformationKeyTooLong_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
 
     assertThrows(
@@ -124,6 +124,41 @@ class StaticQRCodeTest {
 
     assertThrows(
         InvalidDataException.class, () -> staticQRCode.setMerchantCity(generateLongString(100)));
+  }
+
+  @Test
+  void setMerchantCategoryCode_nullMerchantCategoryCode_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode(null));
+  }
+
+  @Test
+  void setMerchantCategoryCode_emptyMerchantCategoryCode_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("   "));
+  }
+
+  @Test
+  void setMerchantCategoryCode_smallerThanExpected_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("000"));
+  }
+
+  @Test
+  void setMerchantCategoryCode_longerThanExpected_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("00000"));
+  }
+
+  @Test
+  void setMerchantCategoryCode_hasNonDigits_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("a123"));
   }
 
   private String generateLongString(int length) {
