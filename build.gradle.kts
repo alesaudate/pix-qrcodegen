@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.github.sherter.google-java-format") version "0.9"
 }
 
 group = "com.github.alesaudate"
@@ -16,4 +17,9 @@ dependencies {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+
+tasks.googleJavaFormat {
+    googleJavaFormat.toolVersion = "1.0"
 }

@@ -4,13 +4,13 @@ import com.github.alesaudate.pix.qrcode.QRCode;
 
 public class OutputDataToStringBuilder {
 
-    private final QRCode qrCode;
+  private final QRCode qrCode;
 
-    public OutputDataToStringBuilder(QRCode qrCode) {
-        this.qrCode = qrCode;
-    }
+  public OutputDataToStringBuilder(QRCode qrCode) {
+    this.qrCode = qrCode;
+  }
 
-    public String build() {
-        return qrCode.asString();
-    }
+  public String build() {
+    return qrCode.asString();
+  }
 }

@@ -4,14 +4,13 @@ import com.github.alesaudate.pix.qrcode.DynamicQRCode;
 
 public class DynamicQRCodeBuilder {
 
-    private final DynamicQRCode dynamicQRCode;
+  private final DynamicQRCode dynamicQRCode;
 
-    public DynamicQRCodeBuilder(DynamicQRCode dynamicQRCode) {
-        this.dynamicQRCode = dynamicQRCode;
-    }
+  public DynamicQRCodeBuilder(DynamicQRCode dynamicQRCode) {
+    this.dynamicQRCode = dynamicQRCode;
+  }
 
-
-    public  MerchantAccountInformationDynamicBuilder merchantAccountInformation() {
-        return new MerchantAccountInformationDynamicBuilder(this.dynamicQRCode);
-    }
+  public MerchantAccountInformationDynamicBuilder merchantAccountInformation() {
+    return new MerchantAccountInformationDynamicBuilder(this.dynamicQRCode);
+  }
 }

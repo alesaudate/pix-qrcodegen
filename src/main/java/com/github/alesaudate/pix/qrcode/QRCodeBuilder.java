@@ -5,20 +5,15 @@ import com.github.alesaudate.pix.qrcode.builder.staticbuilder.StaticQRCodeBuilde
 
 public class QRCodeBuilder {
 
+  public static StaticQRCodeBuilder staticQRCode() {
+    StaticQRCode staticQRCode = new StaticQRCode();
+    staticQRCode.setDefaultValues();
+    return new StaticQRCodeBuilder(staticQRCode);
+  }
 
-    public static StaticQRCodeBuilder staticQRCode() {
-        StaticQRCode staticQRCode = new StaticQRCode();
-        staticQRCode.setDefaultValues();
-        return new StaticQRCodeBuilder(staticQRCode);
-    }
-
-    public static DynamicQRCodeBuilder dynamicQRCode(){
-        DynamicQRCode dynamicQRCode = new DynamicQRCode();
-        dynamicQRCode.setDefaultValues();
-        return new DynamicQRCodeBuilder(dynamicQRCode);
-    }
-
+  public static DynamicQRCodeBuilder dynamicQRCode() {
+    DynamicQRCode dynamicQRCode = new DynamicQRCode();
+    dynamicQRCode.setDefaultValues();
+    return new DynamicQRCodeBuilder(dynamicQRCode);
+  }
 }
-
-
-
