@@ -19,8 +19,4 @@ public class TransactionAmountBuilder {
     dynamicQRCode.setTransactionAmount(transactionAmount);
     return new MerchantNameDynamicBuilder(dynamicQRCode);
   }
-
-  public MerchantNameDynamicBuilder transactionAmount(Double transactionAmount) {
-    return transactionAmount(new BigDecimal(transactionAmount));
-  }
 }

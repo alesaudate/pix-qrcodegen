@@ -161,6 +161,46 @@ class StaticQRCodeTest {
     assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("a123"));
   }
 
+  @Test
+  void asString_missingMerchantAccountInformationKey_validationFails() {
+    StaticQRCode staticQRCode = new StaticQRCode();
+    staticQRCode.setDefaultValues();
+    staticQRCode.setMerchantName("Fulano de Tal");
+    staticQRCode.setMerchantCity("BRASILIA");
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+  }
+
+  @Test
+  void asString_missingMerchantName_validationFails() {
+    StaticQRCode staticQRCode = new StaticQRCode();
+    staticQRCode.setDefaultValues();
+    staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
+    staticQRCode.setMerchantCity("BRASILIA");
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+  }
+
+  @Test
+  void asString_missingMerchantCity_validationFails() {
+    StaticQRCode staticQRCode = new StaticQRCode();
+    staticQRCode.setDefaultValues();
+    staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
+    staticQRCode.setMerchantName("Fulano de Tal");
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+  }
+
+  @Test
+  void asString_missingDefaultValues_validationFails() {
+    StaticQRCode staticQRCode = new StaticQRCode();
+    staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
+    staticQRCode.setMerchantName("Fulano de Tal");
+    staticQRCode.setMerchantCity("BRASILIA");
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+  }
+
   private String generateLongString(int length) {
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < length; i++) {
