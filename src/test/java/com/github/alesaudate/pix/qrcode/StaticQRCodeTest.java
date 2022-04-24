@@ -65,19 +65,18 @@ class StaticQRCodeTest {
   }
 
   @Test
-  void asString_blankMerchantName_validationFails() {
+  void setMerchantName_blankMerchantName_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
-    staticQRCode.setMerchantName("    ");
 
-    assertThrows(InvalidDataException.class, staticQRCode::asString);
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantName("    "));
   }
 
   @Test
-  void asString_merchantNameTooLong_validationFails() {
+  void setMerchantName_merchantNameTooLong_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
-    staticQRCode.setMerchantName(generateLongString(100));
 
-    assertThrows(InvalidDataException.class, staticQRCode::asString);
+    assertThrows(
+        InvalidDataException.class, () -> staticQRCode.setMerchantName(generateLongString(100)));
   }
 
   @Test
@@ -99,9 +98,10 @@ class StaticQRCodeTest {
   @Test
   void asString_merchantAccountInformationKeyTooLong_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
-    staticQRCode.setMerchantAccountInformationKey(generateLongString(78));
 
-    assertThrows(InvalidDataException.class, staticQRCode::asString);
+    assertThrows(
+        InvalidDataException.class,
+        () -> staticQRCode.setMerchantAccountInformationKey(generateLongString(78)));
   }
 
   @Test
@@ -119,11 +119,11 @@ class StaticQRCodeTest {
   }
 
   @Test
-  void asString_merchantCityTooLong_validationFails() {
+  void setMerchantCity_merchantCityTooLong_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
-    staticQRCode.setMerchantCity(generateLongString(100));
 
-    assertThrows(InvalidDataException.class, staticQRCode::asString);
+    assertThrows(
+        InvalidDataException.class, () -> staticQRCode.setMerchantCity(generateLongString(100)));
   }
 
   private String generateLongString(int length) {

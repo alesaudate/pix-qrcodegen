@@ -47,6 +47,7 @@ public abstract class QRCode {
   }
 
   protected void addBlock(Block block) {
+    block.validateBlockContent();
     removeBlockWithCode(block.getBlockCode());
     this.blocks.add(block);
   }
