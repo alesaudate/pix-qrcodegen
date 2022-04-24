@@ -23,3 +23,7 @@ tasks.getByName<Test>("test") {
 tasks.googleJavaFormat {
     googleJavaFormat.toolVersion = "1.0"
 }
+
+tasks.verifyGoogleJavaFormat {
+    googleJavaFormat.toolVersion = "1.0"
+}

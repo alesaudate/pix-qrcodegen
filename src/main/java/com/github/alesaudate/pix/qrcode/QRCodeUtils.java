@@ -1,11 +1,11 @@
 package com.github.alesaudate.pix.qrcode;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 import static java.util.regex.Pattern.compile;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QRCodeUtils {
 
