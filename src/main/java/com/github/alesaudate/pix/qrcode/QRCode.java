@@ -10,14 +10,18 @@ import static java.util.Collections.singletonList;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.joining;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public abstract class QRCode {
 
   // Codes for blocks
   private static final String MERCHANT_ACCOUNT_INFORMATION_GUI_CODE = "00";
+
   protected static final String MERCHANT_ACCOUNT_INFORMATION_BLOCK_CODE = "26";
   private static final String MERCHANT_CATEGORY_CODE_BLOCK_CODE = "52";
+  protected static final String TRANSACTION_AMOUNT_CODE = "54";
   private static final String MERCHANT_NAME_BLOCK_CODE = "59";
   private static final String MERCHANT_CITY_BLOCK_CODE = "60";
   protected static final String ADDITIONAL_DATA_FIELD_CODE = "62";
@@ -125,6 +129,11 @@ public abstract class QRCode {
             ADDITIONAL_DATA_FIELD_CODE,
             singletonList(
                 new SimpleBlock(ADDITIONAL_DATA_FIELD_REFERENCE_LABEL_CODE, transactionCode))));
+  }
+
+  public void setTransactionAmount(BigDecimal transactionAmount) {
+    String amount = transactionAmount.setScale(2, RoundingMode.UNNECESSARY).toPlainString();
+    addBlock(new SimpleBlock(TRANSACTION_AMOUNT_CODE, amount));
   }
 
   protected Set<String> getMandatoryBlockCodes() {

@@ -2,7 +2,7 @@
 
 Este projeto é direcionado a desenvolvedores que têm a necessidade de escrever código capaz de gerar dados de QR Codes compatíveis com a especificação PIX. 
 
-De acordo com a especificação, dois tipos de QR Codes devem ser gerados, estáticos e dinâmicos.
+Conforme a especificação, é possível gerar QR Codes estáticos ou dinâmicos.
 
 ## Gerando um QR Code estático
 
@@ -43,7 +43,7 @@ A API fornecida por este projeto possibilita a geração dos dados por duas form
   
 ### Utilizando um POJO 
 
-  Se por algum motivo o desenvolvedor não quiser / não puder utilizar a DSL, existe uma abordagem alternativa para criação do objeto, que é através do uso de um POJO. Um exemplo de uso desta API é o seguinte:
+  Se por algum motivo o desenvolvedor não quiser / não puder utilizar a DSL, existe uma abordagem alternativa para criação do objeto através do uso de um POJO. Um exemplo de uso desta API é o seguinte:
   
 ```java
 import com.github.alesaudate.pix.qrcode.StaticQRCode;
