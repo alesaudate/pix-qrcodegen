@@ -4,7 +4,7 @@ plugins {
     id("com.github.sherter.google-java-format") version "0.9"
 }
 
-group = "com.github.alesaudate"
+group = "io.github.alesaudate"
 version = "1.0-SNAPSHOT"
 
 repositories {
