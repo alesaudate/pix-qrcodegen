@@ -38,6 +38,35 @@ class StaticQRCodeTest {
   }
 
   @Test
+  void staticQRCode_customizingMerchantAccountInformationGUI() {
+
+    String staticQRCode =
+        staticQRCode()
+            .merchantAccountInformation()
+            .gui("test.pix.com.br")
+            .merchantKey("123e4567-e12b-12d1-a456-426655440000")
+            .unknownMerchantCategoryCode()
+            .merchantName("Fulano de Tal")
+            .merchantCity("BRASILIA")
+            .build();
+
+    assertEquals(
+        "000201"
+            + "2659"
+            + "0015test.pix.com.br"
+            + "0136123e4567-e12b-12d1-a456-426655440000"
+            + "52040000"
+            + "5303986"
+            + "5802BR"
+            + "5913Fulano de Tal"
+            + "6008BRASILIA"
+            + "6207"
+            + "0503***"
+            + "63042060",
+        staticQRCode);
+  }
+
+  @Test
   void staticQRCode_basicStaticQRCodeUsingPOJO() {
 
     StaticQRCode staticQRCode = givenAStaticQRCode();

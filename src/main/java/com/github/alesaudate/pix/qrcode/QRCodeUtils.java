@@ -15,6 +15,7 @@ public class QRCodeUtils {
   private static final Pattern NUMERIC_PATTERN = compile("^\\d+$");
   private static final Pattern KEY_PATTERN = compile("^[a-zA-Z\\d\\-*]+$");
   private static final Pattern URL_PATTERN = compile("^[a-zA-Z\\d\\-./]+$");
+  private static final Pattern GUI_PATTERN = compile("^[a-zA-Z\\d.]+$");
 
   static String getLengthWithTwoDigits(String string) {
     return leftPad(String.valueOf(string.length()), 2);
@@ -61,6 +62,10 @@ public class QRCodeUtils {
 
   static boolean validateNumeric(String string) {
     return validateStringUsingPattern(string, NUMERIC_PATTERN);
+  }
+
+  static boolean validateGUI(String string) {
+    return validateStringUsingPattern(string, GUI_PATTERN);
   }
 
   static boolean validateStringUsingPattern(String string, Pattern pattern) {

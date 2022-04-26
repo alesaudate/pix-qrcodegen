@@ -10,6 +10,11 @@ public class MerchantAccountInformationStaticBuilder {
     this.staticQRCode = staticQRCode;
   }
 
+  public MerchantAccountInformationStaticBuilder gui(String gui) {
+    staticQRCode.setMerchantAccountInformationGuiCode(gui);
+    return this;
+  }
+
   public MerchantCategoryCodeBuilder merchantKey(String merchantKey) {
     staticQRCode.setMerchantAccountInformationKey(merchantKey);
     return new MerchantCategoryCodeBuilder(this.staticQRCode);

@@ -53,9 +53,12 @@ public abstract class QRCode {
   }
 
   protected void removeBlockWithCode(String code) {
-    Optional<Block> optionalBlock =
-        this.blocks.stream().filter(block -> block.getBlockCode().equals(code)).findAny();
+    Optional<Block> optionalBlock = getBlock(code);
     optionalBlock.ifPresent(this.blocks::remove);
+  }
+
+  private Optional<Block> getBlock(String code) {
+    return this.blocks.stream().filter(block -> block.getBlockCode().equals(code)).findAny();
   }
 
   protected void setDefaultValues() {
@@ -65,10 +68,28 @@ public abstract class QRCode {
   }
 
   protected void addBlockWithinMerchantAccountInformation(SimpleBlock simpleBlock) {
-    addBlock(
-        new CompositeBlock(
-            MERCHANT_ACCOUNT_INFORMATION_BLOCK_CODE,
-            asList(MERCHANT_ACCOUNT_INFORMATION_GUI_BLOCK, simpleBlock)));
+    CompositeBlock merchantAccountInformation =
+        getMerchantAccountInformation()
+            .orElseGet(
+                () ->
+                    new CompositeBlock(
+                        MERCHANT_ACCOUNT_INFORMATION_BLOCK_CODE,
+                        singletonList(MERCHANT_ACCOUNT_INFORMATION_GUI_BLOCK)));
+    merchantAccountInformation.addOrReplaceBlock(simpleBlock);
+    addBlock(merchantAccountInformation);
+  }
+
+  private Optional<CompositeBlock> getMerchantAccountInformation() {
+    return getBlock(MERCHANT_ACCOUNT_INFORMATION_BLOCK_CODE).map(CompositeBlock.class::cast);
+  }
+
+  public void setMerchantAccountInformationGuiCode(String merchantAccountInformationGuiCode) {
+    if (!validateGUI(merchantAccountInformationGuiCode)) {
+      throw new InvalidDataException(
+          MESSAGE_PROVIDED_VALUE_IS_NOT_VALID + merchantAccountInformationGuiCode);
+    }
+    addBlockWithinMerchantAccountInformation(
+        new SimpleBlock(MERCHANT_ACCOUNT_INFORMATION_GUI_CODE, merchantAccountInformationGuiCode));
   }
 
   public void setMerchantCategoryCode(String merchantCategoryCode) {
