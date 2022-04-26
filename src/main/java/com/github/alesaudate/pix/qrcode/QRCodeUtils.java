@@ -1,6 +1,5 @@
 package com.github.alesaudate.pix.qrcode;
 
-import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 import static java.util.regex.Pattern.compile;
 

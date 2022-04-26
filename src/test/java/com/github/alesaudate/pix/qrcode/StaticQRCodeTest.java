@@ -1,6 +1,7 @@
 package com.github.alesaudate.pix.qrcode;
 
 import static com.github.alesaudate.pix.qrcode.QRCodeBuilder.staticQRCode;
+import static com.github.alesaudate.pix.qrcode.TestUtils.generateLongString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -168,7 +169,7 @@ class StaticQRCodeTest {
     staticQRCode.setMerchantName("Fulano de Tal");
     staticQRCode.setMerchantCity("BRASILIA");
 
-    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+    assertThrows(InvalidDataException.class, staticQRCode::asString);
   }
 
   @Test
@@ -178,7 +179,7 @@ class StaticQRCodeTest {
     staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
     staticQRCode.setMerchantCity("BRASILIA");
 
-    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+    assertThrows(InvalidDataException.class, staticQRCode::asString);
   }
 
   @Test
@@ -188,7 +189,7 @@ class StaticQRCodeTest {
     staticQRCode.setMerchantAccountInformationKey("123e4567-e12b-12d1-a456-426655440000");
     staticQRCode.setMerchantName("Fulano de Tal");
 
-    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
+    assertThrows(InvalidDataException.class, staticQRCode::asString);
   }
 
   @Test
@@ -198,16 +199,7 @@ class StaticQRCodeTest {
     staticQRCode.setMerchantName("Fulano de Tal");
     staticQRCode.setMerchantCity("BRASILIA");
 
-    assertThrows(InvalidDataException.class, () -> staticQRCode.asString());
-  }
-
-  private String generateLongString(int length) {
-    StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      int charCode = (i % 26) + 'a';
-      builder.append((char) charCode);
-    }
-    return builder.toString();
+    assertThrows(InvalidDataException.class, staticQRCode::asString);
   }
 
   private StaticQRCode givenAStaticQRCode() {

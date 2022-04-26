@@ -5,6 +5,8 @@ import com.github.alesaudate.pix.qrcode.builder.staticbuilder.StaticQRCodeBuilde
 
 public class QRCodeBuilder {
 
+  private QRCodeBuilder() {}
+
   public static StaticQRCodeBuilder staticQRCode() {
     StaticQRCode staticQRCode = new StaticQRCode();
     staticQRCode.setDefaultValues();
