@@ -5,11 +5,19 @@ plugins {
     id("com.github.sherter.google-java-format") version "0.9"
 }
 
+
+
 group = "io.github.alesaudate"
 version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
 }
 
 dependencies {

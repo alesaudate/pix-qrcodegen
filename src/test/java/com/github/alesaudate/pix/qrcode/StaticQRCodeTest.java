@@ -67,36 +67,36 @@ class StaticQRCodeTest {
         staticQRCode);
   }
 
-    @Test
-    void staticQRCode_setMerchantAccountInformationAdditionalInfo() {
+  @Test
+  void staticQRCode_setMerchantAccountInformationAdditionalInfo() {
 
-        String staticQRCode =
-                staticQRCode()
-                        .merchantAccountInformation()
-                        .gui("test.pix.com.br")
-                        .additionalInfo("Test merchant additional info")
-                        .merchantKey("123e4567-e12b-12d1-a456-426655440000")
-                        .unknownMerchantCategoryCode()
-                        .merchantName("Fulano de Tal")
-                        .merchantCity("BRASILIA")
-                        .build();
+    String staticQRCode =
+        staticQRCode()
+            .merchantAccountInformation()
+            .gui("test.pix.com.br")
+            .additionalInfo("Test merchant additional info")
+            .merchantKey("123e4567-e12b-12d1-a456-426655440000")
+            .unknownMerchantCategoryCode()
+            .merchantName("Fulano de Tal")
+            .merchantCity("BRASILIA")
+            .build();
 
-        assertEquals(
-                "000201"
-                        + "2692"
-                        + "0015test.pix.com.br"
-                        + "0229Test merchant additional info"
-                        + "0136123e4567-e12b-12d1-a456-426655440000"
-                        + "52040000"
-                        + "5303986"
-                        + "5802BR"
-                        + "5913Fulano de Tal"
-                        + "6008BRASILIA"
-                        + "6207"
-                        + "0503***"
-                        + "63043203",
-                staticQRCode);
-    }
+    assertEquals(
+        "000201"
+            + "2692"
+            + "0015test.pix.com.br"
+            + "0229Test merchant additional info"
+            + "0136123e4567-e12b-12d1-a456-426655440000"
+            + "52040000"
+            + "5303986"
+            + "5802BR"
+            + "5913Fulano de Tal"
+            + "6008BRASILIA"
+            + "6207"
+            + "0503***"
+            + "63043203",
+        staticQRCode);
+  }
 
   @Test
   void staticQRCode_basicStaticQRCodeUsingPOJO() {
@@ -311,14 +311,18 @@ class StaticQRCodeTest {
 
     assertThrows(
         InvalidDataException.class,
-        () -> staticQRCode.setMerchantAccountInformationAdditionalInfo("Test data generation with a little bit "));
+        () ->
+            staticQRCode.setMerchantAccountInformationAdditionalInfo(
+                "Test data generation with a little bit "));
   }
 
   @Test
   void setMerchantAccountInformationAdditionalInfo_containingSpecialCharacters_validationFails() {
     StaticQRCode staticQRCode = givenAStaticQRCode();
 
-    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantAccountInformationAdditionalInfo("***"));
+    assertThrows(
+        InvalidDataException.class,
+        () -> staticQRCode.setMerchantAccountInformationAdditionalInfo("***"));
   }
 
   @Test
