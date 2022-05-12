@@ -1,14 +1,18 @@
+import org.gradle.api.publish.maven.MavenPublication
+
 plugins {
     id("java")
     id("maven-publish")
     id("jacoco")
     id("com.github.sherter.google-java-format") version "0.9"
+    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    signing
 }
 
 
 
 group = "io.github.alesaudate"
-version = "1.0-SNAPSHOT"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -18,6 +22,53 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "io.github.alesaudate"
+            artifactId = "pix-qrcodegen"
+            version = "1.0"
+
+            from(components["java"])
+
+            pom {
+                name.set("PIX QR Code generator")
+                description.set("Helper library to create PIX-compliant QR Code texts")
+                url.set("https://github.com/alesaudate/pix-qrcodegen")
+                licenses {
+                    name.set("MIT")
+                    url.set("https://opensource.org/licenses/MIT")
+                }
+
+                developers {
+                    developer {
+                        id.set("alesaudate")
+                        name.set("Alexandre Saudate")
+                    }
+                }
+
+                scm {
+                    url.set("https://github.com/alesaudate/pix-qrcodegen")
+                    connection.set("scm:git://github.com/alesaudate/pix-qrcodegen.git")
+                    developerConnection.set("scm:git://github.com/alesaudate/pix-qrcodegen.git")
+                }
+            }
+        }
+    }
+}
+signing {
+    sign(publishing.publications["mavenJava"])
 }
 
 dependencies {
