@@ -66,6 +66,33 @@ Este código produz a mesma saída que o descrito pela DSL, mas observe que ele 
 
 ## Gerando um QR Code dinâmico
 
+A utilização da API para geração de QR Codes dinâmicos é bem semelhante à de QR Codes estáticos. 
+
 ### Através da DSL
 
-### Utilizando um POJO
+Um exemplo de uso da DSL de geração de QR Codes dinâmicos é o seguinte:
+
+```java
+import static com.github.alesaudate.pix.qrcode.QRCodeBuilder.dynamicQRCode;
+
+public class Pix {
+
+    public static void main(String[] args) {
+        String dynamicQRCode = dynamicQRCode()
+                .merchantAccountInformation()
+                .url("bx.com.br/pix/8b3da2f3-9a41-40d1-a91a-bd93113bd441")
+                .merchantCategoryCode("0000")
+                .transactionAmount(new BigDecimal("123.45"))
+                .merchantName("Fulano de Tal")
+                .referenceLabel("RP12345678-2019")
+                .merchantCity("BRASILIA")
+                .build();
+
+        System.out.println(dynamicQRCode);
+    }
+}
+```
+
+Este código irá imprimir o seguinte:
+
+`00020101021226720014br.gov.bcb.pix2550bx.com.br/pix/8b3da2f3-9a41-40d1-a91a-bd93113bd4415204000053039865406123.455802BR5913FulanodeTal6008BRASILIA62190515RP12345678-2019630445C8`
