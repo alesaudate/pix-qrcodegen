@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("maven-publish")
     id("jacoco")
     id("com.github.sherter.google-java-format") version "0.9"
 }

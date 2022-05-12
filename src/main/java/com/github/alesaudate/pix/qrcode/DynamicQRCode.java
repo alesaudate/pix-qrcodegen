@@ -1,8 +1,8 @@
 package com.github.alesaudate.pix.qrcode;
 
-import java.util.Set;
-
 import static com.github.alesaudate.pix.qrcode.QRCodeUtils.validateURL;
+
+import java.util.Set;
 
 public class DynamicQRCode extends QRCode {
 

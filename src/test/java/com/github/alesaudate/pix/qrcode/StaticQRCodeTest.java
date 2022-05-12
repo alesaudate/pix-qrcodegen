@@ -5,6 +5,7 @@ import static com.github.alesaudate.pix.qrcode.TestUtils.generateLongString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 
 class StaticQRCodeTest {
@@ -66,6 +67,37 @@ class StaticQRCodeTest {
         staticQRCode);
   }
 
+    @Test
+    void staticQRCode_setMerchantAccountInformationAdditionalInfo() {
+
+        String staticQRCode =
+                staticQRCode()
+                        .merchantAccountInformation()
+                        .gui("test.pix.com.br")
+                        .additionalInfo("Test merchant additional info")
+                        .merchantKey("123e4567-e12b-12d1-a456-426655440000")
+                        .unknownMerchantCategoryCode()
+                        .merchantName("Fulano de Tal")
+                        .merchantCity("BRASILIA")
+                        .build();
+
+        assertEquals(
+                "000201"
+                        + "2692"
+                        + "0015test.pix.com.br"
+                        + "0229Test merchant additional info"
+                        + "0136123e4567-e12b-12d1-a456-426655440000"
+                        + "52040000"
+                        + "5303986"
+                        + "5802BR"
+                        + "5913Fulano de Tal"
+                        + "6008BRASILIA"
+                        + "6207"
+                        + "0503***"
+                        + "63043203",
+                staticQRCode);
+    }
+
   @Test
   void staticQRCode_basicStaticQRCodeUsingPOJO() {
 
@@ -85,6 +117,88 @@ class StaticQRCodeTest {
             + "0503***"
             + "63041D3D",
         staticQRCode.asString());
+  }
+
+  @Test
+  void staticQRCode_usingMerchantAccountInformationAdditionalInfo() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+    staticQRCode.setMerchantAccountInformationAdditionalInfo("Test data generation");
+
+    assertEquals(
+        "000201"
+            + "2682"
+            + "0014br.gov.bcb.pix"
+            + "0136123e4567-e12b-12d1-a456-426655440000"
+            + "0220Test data generation"
+            + "52040000"
+            + "5303986"
+            + "5802BR"
+            + "5913Fulano de Tal"
+            + "6008BRASILIA"
+            + "6207"
+            + "0503***"
+            + "6304B113",
+        staticQRCode.asString());
+  }
+
+  @Test
+  void staticQRCode_usingDSLSetTransactionAmount() {
+
+    String staticQRCode =
+        staticQRCode()
+            .transactionAmount("123")
+            .merchantAccountInformation()
+            .merchantKey("123e4567-e12b-12d1-a456-426655440000")
+            .unknownMerchantCategoryCode()
+            .merchantName("Fulano de Tal")
+            .merchantCity("BRASILIA")
+            .build();
+
+    assertEquals(
+        "000201"
+            + "2658"
+            + "0014br.gov.bcb.pix"
+            + "0136123e4567-e12b-12d1-a456-426655440000"
+            + "52040000"
+            + "5303986"
+            + "5406123.00"
+            + "5802BR"
+            + "5913Fulano de Tal"
+            + "6008BRASILIA"
+            + "6207"
+            + "0503***"
+            + "63041D1D",
+        staticQRCode);
+  }
+
+  @Test
+  void staticQRCode_usingDSLSetTransactionAmountAsBigDecimal() {
+
+    String staticQRCode =
+        staticQRCode()
+            .transactionAmount(new BigDecimal("123"))
+            .merchantAccountInformation()
+            .merchantKey("123e4567-e12b-12d1-a456-426655440000")
+            .unknownMerchantCategoryCode()
+            .merchantName("Fulano de Tal")
+            .merchantCity("BRASILIA")
+            .build();
+
+    assertEquals(
+        "000201"
+            + "2658"
+            + "0014br.gov.bcb.pix"
+            + "0136123e4567-e12b-12d1-a456-426655440000"
+            + "52040000"
+            + "5303986"
+            + "5406123.00"
+            + "5802BR"
+            + "5913Fulano de Tal"
+            + "6008BRASILIA"
+            + "6207"
+            + "0503***"
+            + "63041D1D",
+        staticQRCode);
   }
 
   @Test
@@ -189,6 +303,22 @@ class StaticQRCodeTest {
     StaticQRCode staticQRCode = givenAStaticQRCode();
 
     assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantCategoryCode("a123"));
+  }
+
+  @Test
+  void setMerchantAccountInformationAdditionalInfo_longerThanExpected_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(
+        InvalidDataException.class,
+        () -> staticQRCode.setMerchantAccountInformationAdditionalInfo("Test data generation with a little bit "));
+  }
+
+  @Test
+  void setMerchantAccountInformationAdditionalInfo_containingSpecialCharacters_validationFails() {
+    StaticQRCode staticQRCode = givenAStaticQRCode();
+
+    assertThrows(InvalidDataException.class, () -> staticQRCode.setMerchantAccountInformationAdditionalInfo("***"));
   }
 
   @Test
