@@ -22,6 +22,8 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(8))
     }
+    withJavadocJar()
+    withSourcesJar()
 }
 
 nexusPublishing {
@@ -36,9 +38,7 @@ nexusPublishing {
 publishing {
     publications {
         create<MavenPublication>("mavenJava") {
-            groupId = "io.github.alesaudate"
             artifactId = "pix-qrcodegen"
-            version = "1.0"
 
             from(components["java"])
 
@@ -47,8 +47,10 @@ publishing {
                 description.set("Helper library to create PIX-compliant QR Code texts")
                 url.set("https://github.com/alesaudate/pix-qrcodegen")
                 licenses {
-                    name.set("MIT")
-                    url.set("https://opensource.org/licenses/MIT")
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
                 }
 
                 developers {
