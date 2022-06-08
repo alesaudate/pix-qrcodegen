@@ -96,3 +96,7 @@ public class Pix {
 Este código irá imprimir o seguinte:
 
 `00020101021226720014br.gov.bcb.pix2550bx.com.br/pix/8b3da2f3-9a41-40d1-a91a-bd93113bd4415204000053039865406123.455802BR5913FulanodeTal6008BRASILIA62190515RP12345678-2019630445C8`
+
+## Adicionando ao seu projeto
+
+Você pode encontrar instruções sobre como adicioná-lo ao seu projeto em https://mvnrepository.com/artifact/io.github.alesaudate/pix-qrcodegen/1.0
